@@ -73,13 +73,13 @@ async function cargarContenido(path = '') {
 
             if (item.type === 'dir') {
                 card.classList.add('carpeta');
-                card.innerHTML = `<strong>📁 ${item.name}</strong>`;
+                card.innerHTML = `<strong> ${item.name}</strong>`;
                 card.onclick = () => cargarContenido(item.path);
             } 
             else if (item.type === 'file') {
 
                 card.innerHTML = `
-                    <div class="info-archivo">📄 ${item.name}</div>
+                    <div class="info-archivo"> ${item.name}</div>
                     <button class="boton-descarga">Descargar</button>
                 `;
                 
