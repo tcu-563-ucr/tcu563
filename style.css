@@ -1,0 +1,92 @@
+/* Configuración de colores y cuerpo */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0faff; /* Blanco azulado */
+    margin: 0;
+    padding: 40px;
+    text-align: center;
+}
+
+h1 {
+    color: #0077b6; /* Celeste oscuro */
+}
+
+p {
+    color: #00b4d8; /* Celeste medio */
+    margin-bottom: 30px;
+}
+
+/* Contenedor de las tarjetas */
+.contenedor-galeria {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Estilo de cada "tarjeta" de PDF */
+.tarjeta-pdf {
+    background-color: #ffffff; /* Blanco puro */
+    border: 2px solid #caf0f8; /* Borde celeste muy claro */
+    border-radius: 8px;
+    padding: 20px;
+    text-decoration: none;
+    color: #0077b6;
+    transition: all 0.3s ease;
+    display: block;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+/* Efecto al pasar el ratón */
+.tarjeta-pdf:hover {
+    background-color: #90e0ef; /* Celeste más vivo */
+    color: white;
+    transform: translateY(-5px);
+}
+
+.tarjeta-pdf.carpeta {
+    border-color: #0077b6; /* Un celeste más fuerte */
+    cursor: pointer;
+    background-color: #e0f2f1;
+}
+
+.tarjeta-pdf.volver {
+    background-color: #f8f9fa;
+    border-style: dashed;
+    cursor: pointer;
+}
+
+.enlace-pdf {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* Estilo del link dentro de la tarjeta */
+.enlace-pdf {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    text-decoration: none;
+    color: #0077b6;
+}
+
+/* El "botón" visual de descarga */
+.boton-descarga {
+    margin-top: 15px;
+    background-color: #0077b6; /* Azul fuerte */
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 0.8em;
+    transition: background-color 0.2s;
+}
+
+.enlace-pdf:hover .boton-descarga {
+    background-color: #00b4d8; /* Celeste más claro al pasar el mouse */
+}
