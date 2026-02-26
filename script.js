@@ -4,33 +4,21 @@ let currentPath = '';
 
 const container = document.getElementById('lista-pdfs');
 
-
-const ARCHIVOS_OCULTOS = [
-    'index.html', 
-    'style.css', 
-    'script.js', 
-    'README.md',
-
-];
-
+const ARCHIVOS_OCULTOS = ['index.html', 'style.css', 'script.js', 'README.md', '.gitignore'];
 
 async function descargarArchivo(url, nombre) {
     try {
         const respuesta = await fetch(url);
-        const blob = await respuesta.blob(); 
+        const blob = await respuesta.blob();
         const urlBlob = window.URL.createObjectURL(blob);
-        
         const a = document.createElement('a');
         a.href = urlBlob;
         a.download = nombre;
         document.body.appendChild(a);
         a.click();
-        
-
         document.body.removeChild(a);
         window.URL.revokeObjectURL(urlBlob);
     } catch (error) {
-        console.error("Error en la descarga forzada:", error);
         window.open(url, '_blank');
     }
 }
@@ -42,14 +30,7 @@ async function cargarContenido(path = '') {
     try {
         const response = await fetch(url);
         const items = await response.json();
-        
-        if (!Array.isArray(items)) {
-            container.innerHTML = '<p>No se encontraron archivos en esta ubicación.</p>';
-            return;
-        }
-
-        container.innerHTML = '';
-
+        container.innerHTML = ''; 
 
         if (path !== '') {
             const btnVolver = document.createElement('div');
@@ -63,9 +44,8 @@ async function cargarContenido(path = '') {
             container.appendChild(btnVolver);
         }
 
-
         items.forEach(item => {
-            
+           
             if (ARCHIVOS_OCULTOS.includes(item.name)) return;
 
             const card = document.createElement('div');
@@ -76,33 +56,22 @@ async function cargarContenido(path = '') {
                 card.innerHTML = `<strong> ${item.name}</strong>`;
                 card.onclick = () => cargarContenido(item.path);
             } 
-            else if (item.type === 'file') {
-
+            else {
                 card.innerHTML = `
                     <div class="info-archivo"> ${item.name}</div>
                     <button class="boton-descarga">Descargar</button>
                 `;
-                
-               
                 const btn = card.querySelector('.boton-descarga');
                 btn.onclick = (e) => {
-                    e.stopPropagation(); 
+                    e.stopPropagation();
                     descargarArchivo(item.download_url, item.name);
                 };
-            } 
-            
+            }
             container.appendChild(card);
         });
-
-        if (container.innerHTML === '') {
-            container.innerHTML = '<p>Carpeta vacía.</p>';
-        }
-
     } catch (error) {
-        console.error("Error al cargar:", error);
-        container.innerHTML = '<p>Error de conexión con GitHub.</p>';
+        container.innerHTML = '<p>Error de conexión con el repositorio.</p>';
     }
 }
-
 
 cargarContenido();
