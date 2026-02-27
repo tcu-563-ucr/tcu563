@@ -75,19 +75,29 @@ p {
 
 /* Efecto al pasar el ratón */
 .tarjeta-pdf:hover {
-    background-color: #90e0ef; /* Celeste más vivo */
-    color: white;
+    background-color: #ffffff;
+    color: #005b8a;
     transform: translateY(-5px);
 }
 
 .tarjeta-pdf.carpeta {
     border-color: #0077b6; /* Un celeste más fuerte */
     cursor: pointer;
-    background-color: #e0f2f1;
+    background-color: #ffffff;
+    position: relative;
+    padding-top: 20px;
+}
+
+.tarjeta-pdf.carpeta::before {
+    content: "🗀";
+    position: absolute;
+    top: 10px;
+    left: 14px;
+    font-size: 1.2em;
 }
 
 .tarjeta-pdf.volver {
-    background-color: #f8f9fa;
+    background-color: #ffffff;
     border-style: dashed;
     cursor: pointer;
 }
