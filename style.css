@@ -7,13 +7,41 @@ body {
     text-align: center;
 }
 
+/* Header como logo compacto */
+header {
+    margin-bottom: 40px;
+    background-color: #ffffff;
+    padding: 20px 30px;
+    border-radius: 15px;
+    box-shadow: 0 2px 8px rgba(0, 119, 182, 0.1);
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 h1 {
     color: #0077b6; /* Celeste oscuro */
+    font-size: 1.8em;
+    margin: 0;
+    margin-bottom: 5px;
+}
+
+header p {
+    color: #00b4d8; /* Celeste medio */
+    font-size: 0.9em;
+    margin: 0;
 }
 
 p {
     color: #00b4d8; /* Celeste medio */
     margin-bottom: 30px;
+}
+
+.descripcion {
+    font-size: 1.1em;
+    color: #0077b6;
+    margin-bottom: 40px;
+    font-weight: normal;
 }
 
 /* Contenedor de las tarjetas */
