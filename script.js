@@ -75,3 +75,19 @@ async function cargarContenido(path = '') {
 }
 
 cargarContenido();
+
+// Funcionalidad del buscador
+const buscador = document.getElementById('buscador');
+buscador.addEventListener('input', function() {
+    const textoBusqueda = this.value.toLowerCase();
+    const tarjetas = document.querySelectorAll('.tarjeta-pdf:not(.volver)');
+    
+    tarjetas.forEach(tarjeta => {
+        const nombreArchivo = tarjeta.textContent.toLowerCase();
+        if (nombreArchivo.includes(textoBusqueda)) {
+            tarjeta.style.display = 'block';
+        } else {
+            tarjeta.style.display = 'none';
+        }
+    });
+});
