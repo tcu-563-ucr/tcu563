@@ -1,180 +1,182 @@
-/* Configuración de colores y cuerpo */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0faff; /* Blanco azulado */
+/* RESET DE DIMENSIONES */
+* {
     margin: 0;
-    padding: 40px 40px 0 40px;
-    text-align: center;
-    min-height: 100vh;
+    padding: 0;
+    box-sizing: border-box; /* Esto evita que los elementos se salgan de sus dimensiones */
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0faff;
+    color: #333;
+    overflow-x: hidden;
+}
+
+/* Navbar */
+.navbar {
+    background: #ffffff;
+    padding: 15px 25px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.menu-container {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 12px;
+}
+
+.menu-icon {
+    width: 25px;
+    height: 18px;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 }
 
-main {
-    flex: 1;
+.menu-icon span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background-color: #0077b6;
+    border-radius: 2px;
 }
 
-/* Header como logo compacto */
-header {
-    margin-bottom: 40px;
-    background-color: #ffffff;
-    padding: 20px 30px;
-    border-radius: 15px;
-    box-shadow: 0 2px 8px rgba(0, 119, 182, 0.1);
-    display: inline-block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-h1 {
-    color: #0077b6; /* Celeste oscuro */
-    font-size: 1.8em;
-    margin: 0;
-    margin-bottom: 5px;
-}
-
-header p {
-    color: #00b4d8; /* Celeste medio */
-    font-size: 0.9em;
-    margin: 0;
-}
-
-p {
-    color: #00b4d8; /* Celeste medio */
-    margin-bottom: 30px;
-}
-
-.descripcion {
-    font-size: 1.1em;
+.menu-text {
     color: #0077b6;
-    margin-bottom: 40px;
-    font-weight: normal;
+    font-weight: bold;
 }
 
-/* Contenedor de las tarjetas */
-.contenedor-galeria {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
-    max-width: 1000px;
+/* Leyenda Frontal */
+.hero-section {
+    padding: 60px 20px;
+    text-align: center;
+    max-width: 900px;
     margin: 0 auto;
 }
 
-/* Estilo de cada "tarjeta" de PDF */
-.tarjeta-pdf {
-    background-color: #ffffff; /* Blanco puro */
-    border: 2px solid #caf0f8; /* Borde celeste muy claro */
-    border-radius: 8px;
-    padding: 20px;
-    text-decoration: none;
+.logo-container h1 {
+    font-size: 3.5em;
     color: #0077b6;
-    transition: all 0.3s ease;
-    display: block;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    margin: 0;
 }
 
-/* Efecto al pasar el ratón */
-.tarjeta-pdf:hover {
-    background-color: #ffffff;
-    color: #005b8a;
-    transform: translateY(-5px);
-}
-
-.tarjeta-pdf.carpeta {
-    border-color: #0077b6; /* Un celeste más fuerte */
-    cursor: pointer;
-    background-color: #ffffff;
-    position: relative;
-    padding-top: 20px;
-}
-
-.tarjeta-pdf.carpeta::before {
-    content: "🗀";
-    position: absolute;
-    top: 10px;
-    left: 14px;
+.subtitle {
+    color: #00b4d8;
     font-size: 1.2em;
+    margin-top: 10px;
 }
 
-.tarjeta-pdf.volver {
-    background-color: #ffffff;
-    border-style: dashed;
-    cursor: pointer;
+.resumen-tcu {
+    background: white;
+    margin-top: 40px;
+    padding: 40px;
+    border-radius: 25px;
+    box-shadow: 0 15px 35px rgba(0, 119, 182, 0.1);
+    text-align: left;
+    line-height: 1.8;
 }
 
-.enlace-pdf {
-    text-decoration: none;
-    color: inherit;
-    display: block;
+/* Panel Desplegable */
+.panel-cursos {
+    position: fixed;
+    top: 0;
+    right: -100%;
     width: 100%;
+    max-width: 400px;
     height: 100%;
-}
-
-/* Estilo del link dentro de la tarjeta */
-.enlace-pdf {
+    background: white;
+    z-index: 1001;
+    transition: 0.5s ease;
+    box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+}
+
+.panel-cursos.active {
+    right: 0;
+}
+
+.panel-header {
+    display: flex;
     justify-content: space-between;
-    height: 100%;
-    text-decoration: none;
-    color: #0077b6;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
 }
 
-/* El "botón" visual de descarga */
-.boton-descarga {
-    margin-top: 15px;
-    background-color: #0077b6; /* Azul fuerte */
-    color: white;
-    padding: 8px 15px;
-    border-radius: 5px;
-    font-size: 0.8em;
-    transition: background-color 0.2s;
+.btn-cerrar {
+    font-size: 30px;
+    background: none;
+    border: none;
+    color: #999;
+    cursor: pointer;
 }
 
-.enlace-pdf:hover .boton-descarga {
-    background-color: #00b4d8; /* Celeste más claro al pasar el mouse */
-}
-
-/* Buscador */
-.buscador-container {
-    max-width: 500px;
-    margin: 0 auto 40px auto;
-}
+/* Buscador y Galería */
+.buscador-container { margin-bottom: 20px; }
 
 #buscador {
     width: 100%;
-    padding: 12px 20px;
-    font-size: 1em;
+    padding: 12px;
     border: 2px solid #caf0f8;
-    border-radius: 25px;
-    outline: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 5px rgba(0, 119, 182, 0.1);
+    border-radius: 10px;
 }
 
-#buscador:focus {
+.contenedor-galeria {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Tarjetas */
+.tarjeta-pdf {
+    background: #f8fdff;
+    border: 1px solid #caf0f8;
+    padding: 15px;
+    border-radius: 10px;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.tarjeta-pdf:hover {
+    transform: translateY(-2px);
     border-color: #0077b6;
-    box-shadow: 0 4px 12px rgba(0, 119, 182, 0.2);
 }
 
-/* Footer */
-footer {
-    margin-top: 60px;
-    margin-left: -40px;
-    margin-right: -40px;
-    padding: 30px 20px;
-    background-color: #ffffff;
-    border-top: 3px solid #caf0f8;
+.tarjeta-pdf.volver {
+    background-color: #e0f2f1;
+    border: 2px dashed #0077b6;
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
     color: #0077b6;
 }
 
-footer p {
-    margin: 5px 0;
-    font-size: 0.9em;
+.tarjeta-pdf.carpeta {
+    border-left: 5px solid #0077b6;
+    cursor: pointer;
 }
 
-.footer-info {
-    color: #00b4d8;
-    font-size: 0.85em;
+.boton-descarga {
+    margin-top: 10px;
+    background: #0077b6;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+footer {
+    padding: 30px;
+    text-align: center;
+    color: #0077b6;
+    font-size: 0.9em;
 }

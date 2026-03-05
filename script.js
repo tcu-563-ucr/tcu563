@@ -3,7 +3,6 @@ const REPO = 'tcu563';
 let currentPath = '';
 
 const container = document.getElementById('lista-pdfs');
-
 const ARCHIVOS_OCULTOS = ['index.html', 'style.css', 'script.js', 'README.md', '.gitignore'];
 
 async function descargarArchivo(url, nombre) {
@@ -35,7 +34,8 @@ async function cargarContenido(path = '') {
         if (path !== '') {
             const btnVolver = document.createElement('div');
             btnVolver.className = 'tarjeta-pdf volver';
-            btnVolver.innerHTML = '<strong>⬅ Volver atrás</strong>';
+   
+            btnVolver.innerHTML = '<strong> Volver a todos los cursos </strong>';
             btnVolver.onclick = () => {
                 const parts = path.split('/');
                 parts.pop();
@@ -45,7 +45,6 @@ async function cargarContenido(path = '') {
         }
 
         items.forEach(item => {
-           
             if (ARCHIVOS_OCULTOS.includes(item.name)) return;
 
             const card = document.createElement('div');
@@ -53,12 +52,12 @@ async function cargarContenido(path = '') {
 
             if (item.type === 'dir') {
                 card.classList.add('carpeta');
-                card.innerHTML = `<strong> ${item.name}</strong>`;
+                card.innerHTML = `<strong>Carpeta: ${item.name}</strong>`;
                 card.onclick = () => cargarContenido(item.path);
             } 
             else {
                 card.innerHTML = `
-                    <div class="info-archivo"> ${item.name}</div>
+                    <div class="info-archivo">${item.name}</div>
                     <button class="boton-descarga">Descargar</button>
                 `;
                 const btn = card.querySelector('.boton-descarga');
@@ -70,13 +69,16 @@ async function cargarContenido(path = '') {
             container.appendChild(card);
         });
     } catch (error) {
-        container.innerHTML = '<p>Error de conexión con el repositorio.</p>';
+        container.innerHTML = '<p>Error de conexion con el repositorio.</p>';
     }
 }
 
-cargarContenido();
+function toggleCursos() {
+    const panel = document.getElementById('panel-cursos');
+    panel.classList.toggle('active');
+}
 
-// Funcionalidad del buscador
+
 const buscador = document.getElementById('buscador');
 buscador.addEventListener('input', function() {
     const textoBusqueda = this.value.toLowerCase();
@@ -84,10 +86,8 @@ buscador.addEventListener('input', function() {
     
     tarjetas.forEach(tarjeta => {
         const nombreArchivo = tarjeta.textContent.toLowerCase();
-        if (nombreArchivo.includes(textoBusqueda)) {
-            tarjeta.style.display = 'block';
-        } else {
-            tarjeta.style.display = 'none';
-        }
+        tarjeta.style.display = nombreArchivo.includes(textoBusqueda) ? 'block' : 'none';
     });
 });
+
+cargarContenido();

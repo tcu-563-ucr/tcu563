@@ -1,37 +1,68 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Repositorio de proyectos del TCU 563 - Apoyo y Capacitación a Micro y Pequeñas Empresas de la Universidad de Costa Rica">
-    <meta name="keywords" content="TCU 563, UCR, proyectos, micro empresas, pequeñas empresas, capacitación">
-    <meta name="author" content="TCU 563 - Universidad de Costa Rica">
-    <title>TCU 563 - Repositorio de Proyectos</title>
+    <title>TCU 563 - Sede del Atlántico UCR</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header>
-        <h1>TCU 563</h1>
-        <p>Apoyo y Capacitación a Micro y Pequeñas Empresas</p>
-    </header>
+    <nav class="navbar">
+        <div class="menu-container" onclick="toggleCursos()">
+            <div class="menu-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <span class="menu-text">Explorar Cursos y Proyectos</span>
+        </div>
+    </nav>
 
-    <main>
-        <p class="descripcion">A continuación puede encontrar los Proyectos Disponibles;</p>
+    <main class="hero-section">
+        <div class="logo-container">
+            <h1>TCU 563</h1>
+            <p class="subtitle">Sede del Atlántico | Universidad de Costa Rica</p>
+        </div>
         
-        <!-- Barra de búsqueda -->
+        <section class="resumen-tcu">
+            <h2>Nuestra Misión</h2>
+            <p>
+                Este Trabajo Comunal Universitario es impulsado por estudiantes de la 
+                <strong>Sede del Atlántico</strong>. Nuestro objetivo es brindar el acceso 
+                a la información, herramientas, investigaciones, cursos y demás, que los estudiantes han desarrollado 
+                durante su proceso de Trabajo Comunal Universitario. 
+            </p>
+            <p>
+                Buscamos brindar un acompañamiento directo y efectivo a micro y pequeños 
+                empresarios, proporcionándoles recursos clave para potenciar su crecimiento 
+                y sostenibilidad en el entorno actual.
+            </p>
+            <div class="info-extra">
+                <br>
+                <p> Sede del Atlántico - Turrialba / Paraíso / Guápiles</p>
+            </div>
+        </section>
+    </main>
+
+    <aside id="panel-cursos" class="panel-cursos">
+        <div class="panel-header">
+            <h3>Repositorio Digital</h3>
+            <button class="btn-cerrar" onclick="toggleCursos()">&times;</button>
+        </div>
+        
         <div class="buscador-container">
-            <input type="text" id="buscador" placeholder="Buscar proyecto..." aria-label="Buscar proyectos">
+            <input type="text" id="buscador" placeholder="¿Qué recurso buscas?..." aria-label="Buscar proyectos">
         </div>
      
         <div id="lista-pdfs" class="contenedor-galeria">
-            <p>Cargando documentos...</p>
+            <p>Cargando recursos estudiantiles...</p>
         </div>
-    </main>
+    </aside>
 
     <footer>
-        <p>&copy; 2026 TCU 563 - Universidad de Costa Rica</p>
-        <p class="footer-info">Apoyo y Capacitación a Micro y Pequeñas Empresas</p>
+        <p>&copy; 2026 TCU 563 - Estudiantes de la Sede del Atlántico, UCR</p>
+        <p class="footer-note">Comprometidos con el desarrollo regional</p>
     </footer>
 
     <script src="script.js"></script>
