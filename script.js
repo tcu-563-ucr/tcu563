@@ -1,5 +1,6 @@
 const USER = 'tcu-563-ucr';
 const REPO = 'tcu563';
+const BRANCH = 'main';
 let currentPath = '';
 
 const container = document.getElementById('lista-pdfs');
@@ -15,29 +16,66 @@ function archivoAdmiteVistaPrevia(nombreArchivo) {
     return ['pdf', 'ppt', 'pptx'].includes(extension);
 }
 
-function obtenerUrlVistaPrevia(downloadUrl, nombreArchivo) {
+function construirUrlRaw(pathArchivo) {
+    const rutaCodificada = pathArchivo
+        .split('/')
+        .map(segmento => encodeURIComponent(segmento))
+        .join('/');
+
+    return `https://raw.githubusercontent.com/${USER}/${REPO}/${BRANCH}/${rutaCodificada}`;
+}
+
+function construirUrlCdn(pathArchivo) {
+    const rutaCodificada = pathArchivo
+        .split('/')
+        .map(segmento => encodeURIComponent(segmento))
+        .join('/');
+
+    return `https://cdn.jsdelivr.net/gh/${USER}/${REPO}@${BRANCH}/${rutaCodificada}`;
+}
+
+function obtenerUrlVistaPrevia(pathArchivo, nombreArchivo) {
     const extension = obtenerExtensionArchivo(nombreArchivo);
+    const cdnUrl = construirUrlCdn(pathArchivo);
 
     if (extension === 'pdf') {
-        return downloadUrl;
+        return `https://docs.google.com/gview?embedded=1&url=${encodeURIComponent(cdnUrl)}`;
     }
 
     if (['ppt', 'pptx'].includes(extension)) {
-        return `https://view.officeapps.live.com/op/view.aspx?src=${encodeURIComponent(downloadUrl)}`;
+        return `https://view.officeapps.live.com/op/view.aspx?src=${encodeURIComponent(cdnUrl)}`;
     }
 
     return null;
 }
 
-function visualizarArchivo(downloadUrl, nombreArchivo) {
-    const vistaPreviaUrl = obtenerUrlVistaPrevia(downloadUrl, nombreArchivo);
+function abrirVistaPrevia(url) {
+    const enlace = document.createElement('a');
+    enlace.href = url;
+    enlace.target = '_blank';
+    enlace.rel = 'noopener noreferrer';
+    document.body.appendChild(enlace);
+    enlace.click();
+    document.body.removeChild(enlace);
+}
+
+async function visualizarArchivo(pathArchivo, nombreArchivo, downloadUrl) {
+    const extension = obtenerExtensionArchivo(nombreArchivo);
+
+    if (extension === 'pdf') {
+        const vistaPreviaPdf = obtenerUrlVistaPrevia(pathArchivo, nombreArchivo);
+        abrirVistaPrevia(vistaPreviaPdf);
+        return;
+    }
+
+    const vistaPreviaUrl = obtenerUrlVistaPrevia(pathArchivo, nombreArchivo);
 
     if (!vistaPreviaUrl) {
         alert('Este tipo de archivo no tiene vista previa disponible.');
         return;
     }
 
-    window.open(vistaPreviaUrl, '_blank', 'noopener,noreferrer');
+    abrirVistaPrevia(vistaPreviaUrl);
 }
 
 async function descargarArchivo(url, nombre) {
@@ -109,7 +147,7 @@ async function cargarContenido(path = '') {
 
                 btnVisualizar.onclick = (e) => {
                     e.stopPropagation();
-                    visualizarArchivo(item.download_url, item.name);
+                    visualizarArchivo(item.path, item.name, item.download_url);
                 };
             }
             container.appendChild(card);
