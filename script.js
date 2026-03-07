@@ -5,6 +5,41 @@ let currentPath = '';
 const container = document.getElementById('lista-pdfs');
 const ARCHIVOS_OCULTOS = ['index.html', 'style.css', 'script.js', 'README.md', '.gitignore'];
 
+function obtenerExtensionArchivo(nombreArchivo) {
+    const partes = nombreArchivo.toLowerCase().split('.');
+    return partes.length > 1 ? partes.pop() : '';
+}
+
+function archivoAdmiteVistaPrevia(nombreArchivo) {
+    const extension = obtenerExtensionArchivo(nombreArchivo);
+    return ['pdf', 'ppt', 'pptx'].includes(extension);
+}
+
+function obtenerUrlVistaPrevia(downloadUrl, nombreArchivo) {
+    const extension = obtenerExtensionArchivo(nombreArchivo);
+
+    if (extension === 'pdf') {
+        return downloadUrl;
+    }
+
+    if (['ppt', 'pptx'].includes(extension)) {
+        return `https://view.officeapps.live.com/op/view.aspx?src=${encodeURIComponent(downloadUrl)}`;
+    }
+
+    return null;
+}
+
+function visualizarArchivo(downloadUrl, nombreArchivo) {
+    const vistaPreviaUrl = obtenerUrlVistaPrevia(downloadUrl, nombreArchivo);
+
+    if (!vistaPreviaUrl) {
+        alert('Este tipo de archivo no tiene vista previa disponible.');
+        return;
+    }
+
+    window.open(vistaPreviaUrl, '_blank', 'noopener,noreferrer');
+}
+
 async function descargarArchivo(url, nombre) {
     try {
         const respuesta = await fetch(url);
@@ -56,14 +91,25 @@ async function cargarContenido(path = '') {
                 card.onclick = () => cargarContenido(item.path);
             } 
             else {
+                const admiteVistaPrevia = archivoAdmiteVistaPrevia(item.name);
                 card.innerHTML = `
                     <div class="info-archivo">${item.name}</div>
-                    <button class="boton-descarga">Descargar</button>
+                    <div class="acciones-archivo">
+                        <button class="boton-visualizar" ${admiteVistaPrevia ? '' : 'disabled'}>Visualizar</button>
+                        <button class="boton-descarga">Descargar</button>
+                    </div>
                 `;
-                const btn = card.querySelector('.boton-descarga');
-                btn.onclick = (e) => {
+                const btnDescarga = card.querySelector('.boton-descarga');
+                const btnVisualizar = card.querySelector('.boton-visualizar');
+
+                btnDescarga.onclick = (e) => {
                     e.stopPropagation();
                     descargarArchivo(item.download_url, item.name);
+                };
+
+                btnVisualizar.onclick = (e) => {
+                    e.stopPropagation();
+                    visualizarArchivo(item.download_url, item.name);
                 };
             }
             container.appendChild(card);
